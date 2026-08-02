@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>حقانی کھاتہ</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2A2118">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="حقانی کھاتہ">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+:root{
+  --paper:#F6EFDC;
+  --paper-2:#FBF7EC;
+  --ink:#2A2118;
+  --ink-soft:#7A6C54;
+  --red:#A32B2B;
+  --red-soft:#C9524F;
+  --green:#3D7A4C;
+  --green-soft:#5C9C6C;
+  --gold:#B8862E;
+  --gold-soft:#DDB868;
+  --card:#FFFDF7;
+  --line:#DBCBA0;
+  --shadow: rgba(42,33,24,.14);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Noto Naskh Arabic','Noto Nastaliq Urdu',serif;
+  background:
+    repeating-linear-gradient(180deg, rgba(184,134,46,0.05) 0px, rgba(184,134,46,0.05) 1px, transparent 1px, transparent 34px),
+    var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+#shell{
+  max-width:430px;
+  margin:0 auto;
+  min-height:100vh;
+  background:transparent;
+  position:relative;
+  padding-bottom:78px;
+}
+
+/* ===== Header ===== */
+header.top{
+  position:sticky; top:0; z-index:20;
+  background:linear-gradient(180deg, var(--ink) 0%, #3a2f22 100%);
+  color:var(--paper-2);
+  padding:16px 18px 14px;
+  border-bottom:3px solid var(--gold);
+  box-shadow:0 4px 12px var(--shadow);
+}
+header.top .row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+header.top .shopname{
+  font-family:'Noto Nastaliq Urdu',serif;
+  font-size:22px;
+  line-height:1.4;
+  font-weight:700;
+  color:#F3E7C9;
+}
+header.top .tagline{font-size:11.5px; color:#C9B98B; margin-top:1px; letter-spacing:.3px;}
+header.top .bookicon{width:30px;height:30px;flex:none;}
+.screentitle{
+  font-family:'Noto Nastaliq Urdu',serif;
+  font-size:19px; font-weight:700; color:var(--ink);
+  padding:14px 18px 4px;
+}
+.screensub{font-size:12.5px; color:var(--ink-soft); padding:0 18px 10px;}
+
+/* ===== Content ===== */
+main{padding:6px 14px 10px;}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:0 2px 6px var(--shadow);
+  position:relative;
+  padding:14px 16px 14px 14px;
+  margin-bottom:12px;
+  overflow:hidden;
+}
+.card.ledger::before{
+  content:"";
+  position:absolute; top:0; bottom:0; right:38px;
+  width:1px; background:rgba(163,43,43,.35);
+}
+.card.ledger{padding-right:52px;}
+
+.stitch{border-top:2px dashed var(--gold-soft); padding-top:12px;}
+
+.kpi-row{display:flex; gap:10px;}
+.kpi{
+  flex:1; background:var(--card); border:1px solid var(--line); border-radius:10px;
+  padding:12px 12px; text-align:center; box-shadow:0 2px 6px var(--shadow);
+}
+.kpi .label{font-size:11.5px; color:var(--ink-soft); margin-bottom:6px;}
+.kpi .value{font-size:19px; font-weight:700; direction:ltr; unicode-bidi:plaintext;}
+.kpi .value.red{color:var(--red);}
+.kpi .value.green{color:var(--green);}
+
+.section-title{
+  font-size:14px; font-weight:700; color:var(--ink);
+  margin:16px 2px 8px; display:flex; align-items:center; gap:6px;
+}
+.section-title .rule{flex:1; height:1px; background:var(--line);}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:10px 16px; border-radius:8px; border:none; cursor:pointer;
+  font-family:inherit; font-size:14px; font-weight:600;
+}
+.btn-gold{background:var(--gold); color:#2A2118;}
+.btn-outline{background:transparent; border:1.5px solid var(--ink); color:var(--ink);}
+.btn-red{background:var(--red); color:#fff;}
+.btn-green{background:var(--green); color:#fff;}
+.btn-block{width:100%;}
+.btn-sm{padding:6px 10px; font-size:12.5px; border-radius:6px;}
+.btn:active{transform:scale(.97);}
+
+.fab{
+  position:fixed; left:18px; bottom:92px; z-index:15;
+  width:52px;height:52px;border-radius:50%;
+  background:var(--gold); color:#2A2118; border:none;
+  font-size:26px; line-height:1; box-shadow:0 4px 14px rgba(0,0,0,.28);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  max-width:430px;
+}
+
+.person-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 4px; border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+.person-row:last-child{border-bottom:none;}
+.person-name{font-size:15px; font-weight:600;}
+.person-meta{font-size:11.5px; color:var(--ink-soft); margin-top:2px; direction:ltr; text-align:right; unicode-bidi:plaintext;}
+.person-bal{font-size:15px; font-weight:700; direction:ltr; unicode-bidi:plaintext;}
+.tag{display:inline-block; font-size:10.5px; padding:2px 8px; border-radius:20px; margin-top:3px;}
+.tag.due{background:rgba(163,43,43,.12); color:var(--red);}
+.tag.clear{background:rgba(61,122,76,.12); color:var(--green);}
+.tag.advance{background:rgba(61,122,76,.12); color:var(--green);}
+
+.tx-row{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding:10px 2px; border-bottom:1px dashed var(--line); gap:8px;
+}
+.tx-row:last-child{border-bottom:none;}
+.tx-desc{font-size:13.5px; font-weight:600;}
+.tx-date{font-size:11px; color:var(--ink-soft); margin-top:2px; direction:ltr; unicode-bidi:plaintext;}
+.tx-amt{font-size:14px; font-weight:700; white-space:nowrap; direction:ltr; unicode-bidi:plaintext;}
+.tx-amt.red{color:var(--red);}
+.tx-amt.green{color:var(--green);}
+.tx-del{background:none;border:none;color:var(--ink-soft);font-size:16px;cursor:pointer;padding:2px 4px;}
+
+.empty{text-align:center; color:var(--ink-soft); font-size:13px; padding:26px 10px;}
+.empty .big{font-size:32px; display:block; margin-bottom:6px;}
+
+.month-switch{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;}
+.month-switch button{
+  background:var(--card); border:1px solid var(--line); border-radius:8px;
+  width:38px;height:38px; font-size:17px; cursor:pointer; color:var(--ink);
+}
+.month-switch .m-label{font-weight:700; font-size:15.5px; flex:1; text-align:center;}
+
+.field{margin-bottom:12px;}
+.field label{display:block; font-size:12.5px; color:var(--ink-soft); margin-bottom:4px; font-weight:600;}
+.field input, .field select, .field textarea{
+  width:100%; padding:10px 12px; border:1.4px solid var(--line); border-radius:8px;
+  background:var(--paper-2); font-family:inherit; font-size:14.5px; color:var(--ink);
+}
+.field textarea{resize:vertical; min-height:60px;}
+.field .phone-row{display:flex; gap:8px;}
+.field .phone-row input{flex:1;}
+.pick-contact-btn{
+  flex:none; width:44px; height:44px; border-radius:8px; border:1.4px solid var(--gold);
+  background:var(--paper-2); color:var(--gold); display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.pick-contact-btn:active{transform:scale(.95);}
+.seg{display:flex; gap:8px;}
+.seg button{
+  flex:1; padding:10px; border-radius:8px; border:1.4px solid var(--line);
+  background:var(--paper-2); font-family:inherit; font-weight:600; font-size:13.5px; cursor:pointer; color:var(--ink-soft);
+}
+.seg button.active.income{background:rgba(61,122,76,.14); border-color:var(--green); color:var(--green);}
+.seg button.active.expense{background:rgba(163,43,43,.14); border-color:var(--red); color:var(--red);}
+
+.overlay{
+  position:fixed; inset:0; background:rgba(20,15,8,.5); z-index:50;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.modal{
+  width:100%; max-width:430px; background:var(--paper-2);
+  border-radius:16px 16px 0 0; padding:18px 18px 22px; max-height:88vh; overflow-y:auto;
+  box-shadow:0 -6px 24px rgba(0,0,0,.3);
+  animation:slideup .18s ease-out;
+}
+@keyframes slideup{from{transform:translateY(24px); opacity:0} to{transform:translateY(0); opacity:1}}
+.modal h3{font-family:'Noto Nastaliq Urdu',serif; font-size:18px; margin:0 0 14px; font-weight:700;}
+.modal .close{position:absolute; left:16px; top:14px; background:none; border:none; font-size:22px; color:var(--ink-soft); cursor:pointer;}
+.modal-inner{position:relative;}
+
+#toast{
+  position:fixed; bottom:100px; left:50%; transform:translateX(-50%);
+  background:var(--ink); color:#F6EFDC; padding:9px 18px; border-radius:20px;
+  font-size:12.5px; z-index:60; opacity:0; pointer-events:none; transition:opacity .25s;
+  max-width:80vw; text-align:center;
+}
+#toast.show{opacity:1;}
+
+nav.bottom{
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:430px; background:var(--ink);
+  display:flex; z-index:20; border-top:3px solid var(--gold);
+}
+nav.bottom button{
+  flex:1; background:none; border:none; color:#B3A480; padding:9px 4px 8px;
+  display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer;
+  font-family:inherit; font-size:10px;
+}
+nav.bottom button.active{color:#F3E7C9;}
+nav.bottom svg{width:20px;height:20px;}
+
+table.rep{width:100%; border-collapse:collapse; font-size:12.5px;}
+table.rep th{background:rgba(184,134,46,.15); color:var(--ink); padding:7px 6px; font-weight:700; text-align:center; border-bottom:1px solid var(--line);}
+table.rep td{padding:7px 6px; text-align:center; border-bottom:1px solid var(--line); direction:ltr; unicode-bidi:plaintext;}
+table.rep td.name{direction:rtl; unicode-bidi:plaintext; text-align:right; font-weight:600;}
+table.rep tr.total td{font-weight:700; background:rgba(184,134,46,.08);}
+
+.wa-link{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:#3D7A4C; color:#fff; text-decoration:none; padding:11px; border-radius:8px; font-weight:600; font-size:13.5px;
+}
+.msgbox{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px;
+  font-size:13px; line-height:1.7; margin-bottom:10px; white-space:pre-wrap;
+}
+#loading{
+  position:fixed; inset:0; background:var(--paper); z-index:100;
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;
+  font-family:'Noto Nastaliq Urdu',serif; font-size:16px; color:var(--ink-soft);
+}
+.subtabs{display:flex; gap:8px; margin-bottom:12px;}
+.subtabs button{
+  flex:1; padding:9px; border-radius:8px; border:1.4px solid var(--line);
+  background:var(--card); font-family:inherit; font-weight:600; font-size:13px; cursor:pointer; color:var(--ink-soft);
+}
+.subtabs button.active{background:var(--gold); border-color:var(--gold); color:#2A2118;}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B8862E" stroke-width="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+  <div>کھاتہ کھل رہا ہے…</div>
+</div>
+
+<div id="shell" style="display:none;">
+  <header class="top">
+    <div class="row">
+      <div>
+        <div class="shopname" id="shopNameDisplay">حقانی کمپوزنگ</div>
+        <div class="tagline">روزنامچہ اور کسٹمر کھاتہ</div>
+      </div>
+      <svg class="bookicon" viewBox="0 0 24 24" fill="none" stroke="#DDB868" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+  </header>
+
+  <div id="titleArea"></div>
+  <main id="app"></main>
+</div>
+
+<div id="toast"></div>
+<div id="modalRoot"></div>
+
+<nav class="bottom" id="bottomNav"></nav>
+
+<script>
+/* ================= STORAGE / STATE ================= */
+const STORE_KEY = 'haqqani-app-v1';
+const OLD_DAYBOOK_KEY = 'shop-daybook-v1';
+const OLD_KHATA_KEY = 'shop-khata-v1';
+let DATA = null;
+let state = { tab:'home', month:null, selectedCustomer:null, reportTab:'daybook' };
+
+function seedData(){
+  return {
+    shopName:'حقانی کمپوزنگ اینڈ شٹیشنری',
+    shopShort:'حقانی کمپوزنگ',
+    daybook:[
+      {id:'d1', date:todayStr(), desc:'نقد فروخت - دن بھر کی سیل', type:'income', amount:500},
+      {id:'d2', date:todayStr(), desc:'دوکان کا کرایہ', type:'expense', amount:800}
+    ],
+    customers:[
+      {id:'c1', name:'Shafqat', phone:'923329952153', notes:'ملک آباد گدون'}
+    ],
+    customerTx:[
+      {id:'t1', customerId:'c1', date:todayStr(), desc:'کاپیاں وغیرہ', credit:2850, paid:2500}
+    ],
+    reminderLog:{}
+  };
+}
+
+let storageOK = true;
+async function loadData(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw){ DATA = JSON.parse(raw); ensureShape(); return; }
+    // migrate from the two older standalone apps, if their data exists
+    const oldDay = localStorage.getItem(OLD_DAYBOOK_KEY);
+    const oldKhata = localStorage.getItem(OLD_KHATA_KEY);
+    if(oldDay || oldKhata){
+      const d = oldDay? JSON.parse(oldDay) : null;
+      const k = oldKhata? JSON.parse(oldKhata) : null;
+      DATA = {
+        shopName: (k&&k.shopName)||(d&&d.shopName)||'حقانی کمپوزنگ اینڈ شٹیشنری',
+        shopShort: (k&&k.shopShort)||(d&&d.shopShort)||'حقانی کمپوزنگ',
+        daybook: (d&&d.daybook)||[],
+        customers: (k&&k.customers)||[],
+        customerTx: (k&&k.customerTx)||[],
+        reminderLog: (k&&k.reminderLog)||{}
+      };
+      saveData();
+      return;
+    }
+  }catch(e){ storageOK = false; }
+  DATA = seedData();
+  saveData();
+}
+function ensureShape(){
+  if(!DATA.daybook) DATA.daybook=[];
+  if(!DATA.customers) DATA.customers=[];
+  if(!DATA.customerTx) DATA.customerTx=[];
+  if(!DATA.reminderLog) DATA.reminderLog={};
+  if(!DATA.shopName) DATA.shopName='حقانی کمپوزنگ اینڈ شٹیشنری';
+  if(!DATA.shopShort) DATA.shopShort='حقانی کمپوزنگ';
+}
+
+function saveData(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify(DATA));
+    storageOK = true;
+  }catch(e){
+    storageOK = false;
+    showToast('محفوظ کرنے میں مسئلہ پیش آیا — براؤزر اسٹوریج بند ہے');
+  }
+}
+function persist(){ saveData(); }
+
+/* ================= HELPERS ================= */
+function uid(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function fmt(n){
+  n = Number(n)||0;
+  const neg = n<0;
+  const s = Math.abs(n).toLocaleString('en-US');
+  return (neg?'-':'') + s + ' روپے';
+}
+function fmtNum(n){ return (Number(n)||0).toLocaleString('en-US'); }
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function urMonths(){
+  return ['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
+}
+function monthLabel(ym){
+  const [y,m] = ym.split('-').map(Number);
+  return urMonths()[m-1] + ' ' + y;
+}
+function normalizePhone(p){
+  let d = (p||'').replace(/\D/g,'');
+  if(d.startsWith('0')) d = '92'+d.slice(1);
+  if(!d.startsWith('92') && d.length===10) d = '92'+d;
+  return d;
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._tm);
+  t._tm = setTimeout(()=>t.classList.remove('show'), 1800);
+}
+function copyText(txt){
+  try{
+    const ta=document.createElement('textarea');
+    ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('میسج کاپی ہوگیا');
+  }catch(e){ showToast('کاپی نہیں ہوسکا'); }
+}
+function toEnglishDigits(str){
+  return String(str||'').replace(/[٠-٩۰-۹]/g, d => {
+    const code = d.charCodeAt(0);
+    if(code >= 0x0660 && code <= 0x0669) return String(code - 0x0660);
+    if(code >= 0x06F0 && code <= 0x06F9) return String(code - 0x06F0);
+    return d;
+  });
+}
+function escapeHtml(s){
+  return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ================= COMPUTATIONS: DAYBOOK ================= */
+function allMonthsSorted(){
+  const set = new Set(DATA.daybook.map(e=>e.date.slice(0,7)));
+  set.add(state.month || todayStr().slice(0,7));
+  return Array.from(set).sort();
+}
+function monthOpening(ym){
+  return DATA.daybook.filter(e=>e.date.slice(0,7) < ym)
+    .reduce((s,e)=> s + (e.type==='income'? Number(e.amount):-Number(e.amount)), 0);
+}
+function monthEntries(ym){
+  return DATA.daybook.filter(e=>e.date.slice(0,7)===ym).sort((a,b)=>a.date<b.date?-1:1);
+}
+function monthTotals(ym){
+  const entries = monthEntries(ym);
+  const income = entries.filter(e=>e.type==='income').reduce((s,e)=>s+Number(e.amount),0);
+  const expense = entries.filter(e=>e.type==='expense').reduce((s,e)=>s+Number(e.amount),0);
+  const opening = monthOpening(ym);
+  return {income, expense, opening, closing: opening+income-expense};
+}
+function currentCashBalance(){
+  return DATA.daybook.reduce((s,e)=> s + (e.type==='income'? Number(e.amount):-Number(e.amount)), 0);
+}
+
+/* ================= COMPUTATIONS: CUSTOMERS ================= */
+function customerBalance(cid){
+  return DATA.customerTx.filter(t=>t.customerId===cid)
+    .reduce((s,t)=> s + (Number(t.credit)||0) - (Number(t.paid)||0), 0);
+}
+function customerLastDate(cid){
+  const txs = DATA.customerTx.filter(t=>t.customerId===cid).sort((a,b)=>a.date<b.date?1:-1);
+  return txs.length? txs[0].date : null;
+}
+function daysSince(dateStr){
+  if(!dateStr) return null;
+  const d1 = new Date(dateStr+'T00:00:00');
+  const d2 = new Date(todayStr()+'T00:00:00');
+  return Math.round((d2-d1)/86400000);
+}
+function overdueCustomers(){
+  return DATA.customers.filter(c=>{
+    const bal = customerBalance(c.id);
+    if(bal<=0) return false;
+    const d = daysSince(customerLastDate(c.id));
+    return d!==null && d>=15;
+  }).sort((a,b)=> daysSince(customerLastDate(b.id)) - daysSince(customerLastDate(a.id)));
+}
+function reminderMsg(c){
+  const bal = customerBalance(c.id);
+  return `السلام علیکم ${c.name}، آپ کے ذمے ${fmtNum(Math.max(bal,0))} روپے کا حساب باقی ہے (آخری ادائیگی کو ${daysSince(customerLastDate(c.id))} دن ہوچکے ہیں)۔ براہ کرم جلد ادائیگی فرمائیں۔ شکریہ - ${DATA.shopShort}`;
+}
+function waLink(c){ return `https://wa.me/${c.phone}?text=${encodeURIComponent(reminderMsg(c))}`; }
+function markReminderSent(cid){
+  if(!DATA.reminderLog) DATA.reminderLog={};
+  DATA.reminderLog[cid] = todayStr();
+  persist();
+}
+function markReminderSeen(cid){ markReminderSent(cid); }
+function pendingAutoReminders(){
+  if(!DATA.reminderLog) DATA.reminderLog={};
+  return overdueCustomers().filter(c => DATA.reminderLog[c.id] !== todayStr());
+}
+function totalOutstanding(){
+  return DATA.customers.reduce((s,c)=> s + Math.max(customerBalance(c.id),0), 0);
+}
+
+/* ================= RENDER: SHELL ================= */
+const NAV_ITEMS = [
+  {key:'home', label:'خلاصہ', icon:`<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5a1 1 0 0 0 1 1H17.5a1 1 0 0 0 1-1V10"/>`},
+  {key:'daybook', label:'روزنامچہ', icon:`<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>`},
+  {key:'customers', label:'کسٹمرز', icon:`<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14a5.2 5.2 0 0 1 5.5 6"/>`},
+  {key:'reports', label:'رپورٹ', icon:`<path d="M4 20V10"/><path d="M11 20V4"/><path d="M18 20v-7"/>`},
+];
+function renderNav(){
+  const el = document.getElementById('bottomNav');
+  el.innerHTML = NAV_ITEMS.map(it=>`
+    <button class="${state.tab===it.key?'active':''}" onclick="goTab('${it.key}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${it.icon}</svg>
+      <span>${it.label}</span>
+    </button>`).join('');
+}
+function goTab(t){ state.tab=t; state.selectedCustomer=null; render(); }
+
+function render(){
+  document.getElementById('shopNameDisplay').textContent = DATA.shopShort || DATA.shopName;
+  renderNav();
+  const titleArea = document.getElementById('titleArea');
+  const app = document.getElementById('app');
+
+  if(state.tab==='home'){
+    titleArea.innerHTML = `<div class="screentitle">خلاصہ</div><div class="screensub">دوکان کی مجموعی صورتحال</div>`;
+    app.innerHTML = renderHome();
+  }else if(state.tab==='daybook'){
+    if(!state.month) state.month = todayStr().slice(0,7);
+    titleArea.innerHTML = `<div class="screentitle">روزنامچہ</div><div class="screensub">روزانہ آمدن اور خرچ</div>`;
+    app.innerHTML = renderDaybook();
+  }else if(state.tab==='customers'){
+    if(state.selectedCustomer){
+      const c = DATA.customers.find(x=>x.id===state.selectedCustomer);
+      titleArea.innerHTML = `<div class="screentitle">${c?escapeHtml(c.name):''}</div><div class="screensub">کسٹمر کا کھاتہ</div>`;
+      app.innerHTML = renderCustomerDetail(state.selectedCustomer);
+    }else{
+      titleArea.innerHTML = `<div class="screentitle">کسٹمرز</div><div class="screensub">ادھار اور وصولی کا حساب</div>`;
+      app.innerHTML = renderCustomersList();
+    }
+  }else if(state.tab==='reports'){
+    titleArea.innerHTML = `<div class="screentitle">رپورٹ</div><div class="screensub">ماہانہ اور کسٹمر خلاصہ</div>`;
+    app.innerHTML = renderReports();
+  }
+
+  renderFab();
+}
+
+function renderFab(){
+  let old = document.getElementById('fabBtn');
+  if(old) old.remove();
+  let html='';
+  if(state.tab==='daybook'){
+    html = `<button class="fab" id="fabBtn" onclick="openAddEntry()">+</button>`;
+  }else if(state.tab==='customers' && !state.selectedCustomer){
+    html = `<button class="fab" id="fabBtn" onclick="openAddCustomer()">+</button>`;
+  }else if(state.tab==='customers' && state.selectedCustomer){
+    html = `<button class="fab" id="fabBtn" onclick="openAddTx('${state.selectedCustomer}')">+</button>`;
+  }
+  if(html){ document.body.insertAdjacentHTML('beforeend', html); }
+}
+
+/* ================= HOME ================= */
+function renderHome(){
+  const cash = currentCashBalance();
+  const ym = todayStr().slice(0,7);
+  const mt = monthTotals(ym);
+  const out = totalOutstanding();
+  const overdueList = overdueCustomers();
+  const dueCustomers = DATA.customers.filter(c=>customerBalance(c.id)>0)
+    .sort((a,b)=>customerBalance(b.id)-customerBalance(a.id)).slice(0,5);
+
+  return `
+    <div class="card" style="text-align:center; margin-bottom:14px;">
+      <div style="font-size:12px;color:var(--ink-soft);">دوکان کا موجودہ بیلنس</div>
+      <div style="font-size:26px;font-weight:700; direction:ltr;">
+        <span style="color:${cash>=0?'var(--green)':'var(--red)'}">${fmt(cash)}</span>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">اس ماہ آمدن</div><div class="value green">${fmtNum(mt.income)}</div></div>
+      <div class="kpi"><div class="label">اس ماہ خرچ</div><div class="value red">${fmtNum(mt.expense)}</div></div>
+      <div class="kpi"><div class="label">کسٹمروں پر بقایا</div><div class="value red">${fmtNum(out)}</div></div>
+    </div>
+
+    <div class="section-title"><span>سب سے زیادہ بقایا کسٹمرز</span><span class="rule"></span></div>
+    <div class="card">
+      ${dueCustomers.length? dueCustomers.map(c=>`
+        <div class="person-row" onclick="openCustomerFromHome('${c.id}')">
+          <div><div class="person-name">${escapeHtml(c.name)}</div></div>
+          <div class="person-bal red">${fmt(customerBalance(c.id))}</div>
+        </div>`).join('') : `<div class="empty">فی الحال کوئی بقایا نہیں 🎉</div>`}
+    </div>
+
+    ${overdueList.length? `
+    <div class="section-title"><span>⏰ 15+ دن سے واجب الادا (${overdueList.length})</span><span class="rule"></span></div>
+    <div class="card ledger">
+      ${overdueList.map(c=>`
+        <div class="tx-row">
+          <div>
+            <div class="tx-desc">${escapeHtml(c.name)}</div>
+            <div class="tx-date">${daysSince(customerLastDate(c.id))} دن پہلے · ${fmtNum(customerBalance(c.id))} روپے</div>
+          </div>
+          ${c.phone? `<a class="btn btn-green btn-sm" target="_blank" onclick="markReminderSent('${c.id}')" href="${waLink(c)}">میسج</a>` : ''}
+        </div>`).join('')}
+    </div>` : ''}
+
+    <div style="display:flex; gap:10px; margin-top:6px;">
+      <button class="btn btn-gold btn-block" onclick="openAddEntry()">+ نئی انٹری</button>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:8px;">
+      <button class="btn btn-outline btn-block" onclick="openAddCustomer()">+ نیا کسٹمر</button>
+    </div>
+  `;
+}
+function openCustomerFromHome(id){ state.tab='customers'; state.selectedCustomer=id; render(); }
+
+/* ================= DAYBOOK ================= */
+function shiftMonth(delta){
+  let [y,m] = state.month.split('-').map(Number);
+  m += delta;
+  if(m<1){m=12;y--;} if(m>12){m=1;y++;}
+  state.month = y+'-'+String(m).padStart(2,'0');
+  render();
+}
+function renderDaybook(){
+  const ym = state.month;
+  const t = monthTotals(ym);
+  const entries = monthEntries(ym);
+  return `
+    <div class="month-switch">
+      <button onclick="shiftMonth(-1)">‹</button>
+      <div class="m-label">${monthLabel(ym)}</div>
+      <button onclick="shiftMonth(1)">›</button>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">ابتدائی بیلنس</div><div class="value">${fmtNum(t.opening)}</div></div>
+      <div class="kpi"><div class="label">آمدن</div><div class="value green">${fmtNum(t.income)}</div></div>
+      <div class="kpi"><div class="label">خرچ</div><div class="value red">${fmtNum(t.expense)}</div></div>
+    </div>
+    <div class="card" style="text-align:center; margin-bottom:14px;">
+      <div style="font-size:12px;color:var(--ink-soft);">آخری بیلنس</div>
+      <div style="font-size:22px;font-weight:700; direction:ltr;">
+        <span style="color:${t.closing>=0?'var(--green)':'var(--red)'}">${fmt(t.closing)}</span>
+      </div>
+    </div>
+
+    <div class="section-title"><span>اندراجات</span><span class="rule"></span></div>
+    <div class="card ledger">
+      ${entries.length? entries.map(e=>`
+        <div class="tx-row">
+          <div>
+            <div class="tx-desc">${escapeHtml(e.desc||'—')}</div>
+            <div class="tx-date">${e.date}</div>
+          </div>
+          <div class="tx-amt ${e.type==='income'?'green':'red'}">${e.type==='income'?'+':'-'}${fmtNum(e.amount)}</div>
+          <button class="tx-del" onclick="delEntry('${e.id}')">✕</button>
+        </div>`).join('') : `<div class="empty"><span class="big">📗</span>اس مہینے کوئی اندراج نہیں</div>`}
+    </div>
+  `;
+}
+function delEntry(id){
+  if(!confirm('یہ اندراج حذف کریں؟')) return;
+  DATA.daybook = DATA.daybook.filter(e=>e.id!==id);
+  persist(); render();
+}
+
+/* ================= CUSTOMERS ================= */
+function renderCustomersList(){
+  if(!DATA.customers.length){
+    return `<div class="card"><div class="empty"><span class="big">🧾</span>ابھی کوئی کسٹمر شامل نہیں<br>نیچے + بٹن سے پہلا کسٹمر شامل کریں</div></div>`;
+  }
+  const sorted = [...DATA.customers].sort((a,b)=> customerBalance(b.id)-customerBalance(a.id));
+  return `<div class="card">
+    ${sorted.map(c=>{
+      const bal = customerBalance(c.id);
+      const tagClass = bal>0?'due': (bal<0?'advance':'clear');
+      const tagText = bal>0?'بقایا': (bal<0?'ایڈوانس':'کلیئر');
+      const d = daysSince(customerLastDate(c.id));
+      const isOverdue = bal>0 && d!==null && d>=15;
+      return `<div class="person-row" onclick="openCustomer('${c.id}')">
+        <div>
+          <div class="person-name">${escapeHtml(c.name)}${isOverdue? ' <span style="color:var(--red);font-size:11px;">⏰'+d+'دن</span>':''}</div>
+          <div class="person-meta">${c.phone?('+'+c.phone):''}</div>
+        </div>
+        <div style="text-align:left;">
+          <div class="person-bal ${bal>0?'red':(bal<0?'green':'')}">${fmt(Math.abs(bal))}</div>
+          <span class="tag ${tagClass}">${tagText}</span>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+function openCustomer(id){ state.selectedCustomer=id; render(); }
+function renderCustomerDetail(cid){
+  const c = DATA.customers.find(x=>x.id===cid);
+  if(!c) return `<div class="empty">کسٹمر نہیں ملا</div>`;
+  const bal = customerBalance(cid);
+  const txs = DATA.customerTx.filter(t=>t.customerId===cid).sort((a,b)=> a.date<b.date?1:-1);
+  const msg = reminderMsg(c);
+
+  return `
+    <button class="btn btn-outline btn-sm" style="margin-bottom:10px;" onclick="backToCustomers()">→ فہرست پر واپس</button>
+    <div class="kpi-row">
+      <div class="kpi"><div class="label">کل ادھار</div><div class="value">${fmtNum(txs.reduce((s,t)=>s+Number(t.credit||0),0))}</div></div>
+      <div class="kpi"><div class="label">کل وصولی</div><div class="value">${fmtNum(txs.reduce((s,t)=>s+Number(t.paid||0),0))}</div></div>
+      <div class="kpi"><div class="label">باقی بیلنس</div><div class="value ${bal>0?'red':'green'}">${fmtNum(Math.abs(bal))}</div></div>
+    </div>
+
+    ${c.phone? `
+    <div class="section-title"><span>واٹس ایپ ریمائنڈر</span><span class="rule"></span></div>
+    <div class="card">
+      <div class="msgbox">${escapeHtml(msg)}</div>
+      <div style="display:flex; gap:8px;">
+        <a class="wa-link" style="flex:1;" target="_blank" onclick="markReminderSent('${c.id}')" href="${waLink(c)}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2 1 2.4c.1.1 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg>
+          چیٹ کھولیں
+        </a>
+        <button class="btn btn-outline btn-sm" onclick='copyText(${JSON.stringify(msg)})'>کاپی</button>
+      </div>
+    </div>` : ''}
+
+    <div class="section-title"><span>لین دین کی تاریخ</span><span class="rule"></span></div>
+    <div class="card ledger">
+      ${txs.length? txs.map(t=>`
+        <div class="tx-row">
+          <div>
+            <div class="tx-desc">${escapeHtml(t.desc||'—')}</div>
+            <div class="tx-date">${t.date}</div>
+          </div>
+          <div style="text-align:left;">
+            ${Number(t.credit)? `<div class="tx-amt red">+${fmtNum(t.credit)}</div>`:''}
+            ${Number(t.paid)? `<div class="tx-amt green">-${fmtNum(t.paid)}</div>`:''}
+          </div>
+          <button class="tx-del" onclick="delTx('${t.id}')">✕</button>
+        </div>`).join('') : `<div class="empty">ابھی کوئی لین دین درج نہیں</div>`}
+    </div>
+
+    <div class="section-title"><span>کسٹمر کی تفصیلات</span><span class="rule"></span></div>
+    <div class="card">
+      <div class="tx-row"><div class="tx-desc">فون نمبر</div><div class="tx-amt">${c.phone?('+'+c.phone):'—'}</div></div>
+      <div class="tx-row"><div class="tx-desc">نوٹس</div><div class="tx-amt" style="direction:rtl">${escapeHtml(c.notes||'—')}</div></div>
+    </div>
+    <button class="btn btn-outline btn-block" style="border-color:var(--red); color:var(--red);" onclick="delCustomer('${c.id}')">کسٹمر حذف کریں</button>
+  `;
+}
+function backToCustomers(){ state.selectedCustomer=null; render(); }
+function delTx(id){
+  if(!confirm('یہ اندراج حذف کریں؟')) return;
+  DATA.customerTx = DATA.customerTx.filter(t=>t.id!==id);
+  persist(); render();
+}
+function delCustomer(id){
+  if(!confirm('یہ کسٹمر اور اس کا سارا ریکارڈ حذف کریں؟')) return;
+  DATA.customers = DATA.customers.filter(c=>c.id!==id);
+  DATA.customerTx = DATA.customerTx.filter(t=>t.customerId!==id);
+  state.selectedCustomer=null;
+  persist(); render();
+}
+
+/* ================= REPORTS ================= */
+function switchReportTab(t){ state.reportTab=t; render(); }
+function renderReports(){
+  const tabsHtml = `
+    <div class="subtabs">
+      <button class="${state.reportTab==='daybook'?'active':''}" onclick="switchReportTab('daybook')">روزنامچہ</button>
+      <button class="${state.reportTab==='customers'?'active':''}" onclick="switchReportTab('customers')">کسٹمرز</button>
+    </div>`;
+
+  if(state.reportTab==='customers'){
+    const custRows = DATA.customers.map(c=>{
+      const b = customerBalance(c.id);
+      return `<tr><td class="name">${escapeHtml(c.name)}</td><td style="color:${b>0?'var(--red)':(b<0?'var(--green)':'var(--ink)')}">${fmtNum(b)}</td></tr>`;
+    }).join('');
+    return `
+      ${tabsHtml}
+      <div class="section-title"><span>کسٹمر بیلنس خلاصہ</span><span class="rule"></span></div>
+      <div class="card" style="padding:8px;">
+        <table class="rep">
+          <thead><tr><th>کسٹمر</th><th>باقی بیلنس</th></tr></thead>
+          <tbody>
+            ${custRows || `<tr><td colspan="2" style="padding:16px;">کوئی کسٹمر موجود نہیں</td></tr>`}
+            <tr class="total"><td class="name">مجموعی بقایا</td><td style="color:var(--red)">${fmtNum(totalOutstanding())}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  const months = allMonthsSorted();
+  let cumIncome=0, cumExpense=0;
+  const rows = months.map(ym=>{
+    const t = monthTotals(ym);
+    cumIncome += t.income; cumExpense += t.expense;
+    return `<tr><td class="name">${monthLabel(ym)}</td><td>${fmtNum(t.opening)}</td><td>${fmtNum(t.income)}</td><td>${fmtNum(t.expense)}</td><td>${fmtNum(t.closing)}</td></tr>`;
+  }).join('');
+  const lastClosing = months.length? monthTotals(months[months.length-1]).closing : 0;
+
+  return `
+    ${tabsHtml}
+    <div class="section-title"><span>ماہانہ خلاصہ</span><span class="rule"></span></div>
+    <div class="card" style="padding:8px;">
+      <table class="rep">
+        <thead><tr><th>مہینہ</th><th>ابتدائی</th><th>آمدن</th><th>خرچ</th><th>آخری</th></tr></thead>
+        <tbody>
+          ${rows || `<tr><td colspan="5" style="padding:16px;">کوئی ڈیٹا موجود نہیں</td></tr>`}
+          <tr class="total"><td class="name">مجموعی</td><td>—</td><td>${fmtNum(cumIncome)}</td><td>${fmtNum(cumExpense)}</td><td>${fmtNum(lastClosing)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* ================= MODALS ================= */
+function openModal(html){
+  document.getElementById('modalRoot').innerHTML = `
+    <div class="overlay" onclick="if(event.target===this) closeModal()">
+      <div class="modal"><div class="modal-inner">
+        <button class="close" onclick="closeModal()">✕</button>
+        ${html}
+      </div></div>
+    </div>`;
+}
+function closeModal(){ document.getElementById('modalRoot').innerHTML=''; }
+
+/* --- daybook entry --- */
+function openAddEntry(){
+  openModal(`
+    <h3>روزنامچہ — نئی انٹری</h3>
+    <div class="field"><label>تاریخ</label><input id="e_date" type="date" value="${todayStr()}" style="direction:ltr;"></div>
+    <div class="field"><label>تفصیل / بیان</label><input id="e_desc" placeholder="مثلاً نقد فروخت"></div>
+    <div class="field"><label>قسم</label>
+      <div class="seg">
+        <button type="button" id="seg_income" class="active income" onclick="setEntryType('income')">آمدن</button>
+        <button type="button" id="seg_expense" onclick="setEntryType('expense')">خرچ</button>
+      </div>
+    </div>
+    <div class="field"><label>رقم (روپے)</label><input id="e_amount" type="text" inputmode="decimal" style="direction:ltr;text-align:left;" placeholder="0"></div>
+    <button class="btn btn-gold btn-block" onclick="saveEntry()">محفوظ کریں</button>
+  `);
+  window._entryType='income';
+}
+function setEntryType(t){
+  window._entryType=t;
+  document.getElementById('seg_income').className = t==='income'?'active income':'';
+  document.getElementById('seg_expense').className = t==='expense'?'active expense':'';
+}
+function saveEntry(){
+  const date = document.getElementById('e_date').value || todayStr();
+  const desc = document.getElementById('e_desc').value.trim();
+  const rawAmount = toEnglishDigits(document.getElementById('e_amount').value).replace(/[^0-9.]/g,'');
+  const amount = parseFloat(rawAmount)||0;
+  if(!amount){ showToast('رقم لکھیں'); return; }
+  DATA.daybook.push({id:uid('d'), date, desc, type:window._entryType||'income', amount});
+  state.month = date.slice(0,7);
+  state.tab = 'daybook';
+  persist(); closeModal(); render();
+  showToast('انٹری محفوظ ہوگئی');
+}
+
+/* --- customer --- */
+function openAddCustomer(){
+  openModal(`
+    <h3>نیا کسٹمر شامل کریں</h3>
+    <div class="field"><label>کسٹمر کا نام</label><input id="f_name" placeholder="مثلاً Shafqat"></div>
+    <div class="field">
+      <label>فون نمبر (ملکی کوڈ سمیت، مثلاً 923001234567)</label>
+      <div class="phone-row">
+        <input id="f_phone" style="direction:ltr;text-align:left;" placeholder="923001234567">
+        <button type="button" class="pick-contact-btn" onclick="pickContact()" title="کنٹیکٹس سے منتخب کریں">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="field"><label>پتہ / نوٹس</label><textarea id="f_notes" placeholder="اختیاری"></textarea></div>
+    <button class="btn btn-gold btn-block" onclick="saveCustomer()">محفوظ کریں</button>
+  `);
+}
+async function pickContact(){
+  if(!('contacts' in navigator) || !('ContactsManager' in window)){
+    showToast('یہ سہولت اس فون/براؤزر میں دستیاب نہیں (Android Chrome پر آزمائیں)');
+    return;
+  }
+  try{
+    const props = ['name','tel'];
+    const opts = {multiple:false};
+    const contacts = await navigator.contacts.select(props, opts);
+    if(!contacts || !contacts.length) return;
+    const picked = contacts[0];
+    if(picked.tel && picked.tel.length){
+      document.getElementById('f_phone').value = normalizePhone(picked.tel[0]);
+    }
+    const nameField = document.getElementById('f_name');
+    if(nameField && !nameField.value.trim() && picked.name && picked.name.length){
+      nameField.value = picked.name[0];
+    }
+    showToast('کنٹیکٹ منتخب ہوگیا');
+  }catch(e){
+    if(e && e.name !== 'AbortError'){ showToast('کنٹیکٹ منتخب نہیں ہوسکا'); }
+  }
+}
+function saveCustomer(){
+  const name = document.getElementById('f_name').value.trim();
+  if(!name){ showToast('کسٹمر کا نام لکھیں'); return; }
+  const phone = normalizePhone(document.getElementById('f_phone').value.trim());
+  const notes = document.getElementById('f_notes').value.trim();
+  DATA.customers.push({id:uid('c'), name, phone, notes});
+  state.tab='customers';
+  persist(); closeModal(); render();
+  showToast('کسٹمر شامل ہوگیا');
+}
+function openAddTx(cid){
+  openModal(`
+    <h3>نیا لین دین</h3>
+    <div class="field"><label>تاریخ</label><input id="f_date" type="date" value="${todayStr()}" style="direction:ltr;"></div>
+    <div class="field"><label>تفصیل / وجہ</label><input id="f_desc" placeholder="مثلاً کاپیاں وغیرہ"></div>
+    <div class="field"><label>ادھار (روپے) — آپ نے دیا</label><input id="f_credit" type="number" style="direction:ltr;text-align:left;" placeholder="0"></div>
+    <div class="field"><label>وصولی (روپے) — واپس ملا</label><input id="f_paid" type="number" style="direction:ltr;text-align:left;" placeholder="0"></div>
+    <button class="btn btn-gold btn-block" onclick="saveTx('${cid}')">محفوظ کریں</button>
+  `);
+}
+function saveTx(cid){
+  const date = document.getElementById('f_date').value || todayStr();
+  const desc = document.getElementById('f_desc').value.trim();
+  const credit = Number(document.getElementById('f_credit').value)||0;
+  const paid = Number(document.getElementById('f_paid').value)||0;
+  if(!credit && !paid){ showToast('ادھار یا وصولی میں سے کوئی رقم لکھیں'); return; }
+  DATA.customerTx.push({id:uid('t'), customerId:cid, date, desc, credit, paid});
+  persist(); closeModal(); render();
+  showToast('اندراج محفوظ ہوگیا');
+}
+
+/* ================= 15 دن آٹو ریمائنڈر ================= */
+function openAutoReminders(list){
+  const items = list.map(c=>`
+    <div class="tx-row">
+      <div>
+        <div class="tx-desc">${escapeHtml(c.name)}</div>
+        <div class="tx-date">آخری لین دین: ${daysSince(customerLastDate(c.id))} دن پہلے · باقی: ${fmtNum(customerBalance(c.id))}</div>
+      </div>
+      ${c.phone? `
+      <a class="btn btn-green btn-sm" target="_blank" onclick="markReminderSent('${c.id}')" href="${waLink(c)}">میسج بھیجیں</a>`
+      : `<span style="font-size:11px;color:var(--ink-soft);">فون نمبر نہیں</span>`}
+    </div>`).join('');
+
+  openModal(`
+    <h3>⏰ 15+ دن سے واجب الادا کسٹمرز</h3>
+    <div class="card" style="padding:6px 10px;">
+      ${items || '<div class="empty">کوئی نہیں</div>'}
+    </div>
+    <button class="btn btn-outline btn-block" style="margin-top:10px;" onclick="dismissAutoReminders()">سب دیکھ لیا — بند کریں</button>
+  `);
+}
+function dismissAutoReminders(){
+  pendingAutoReminders().forEach(c=>markReminderSeen(c.id));
+  closeModal();
+}
+function checkAutoReminders(){
+  const pending = pendingAutoReminders();
+  if(pending.length){ openAutoReminders(pending); }
+}
+function openRemindersManual(){ openAutoReminders(overdueCustomers()); }
+
+/* ================= INIT ================= */
+(async function init(){
+  await loadData();
+  document.getElementById('loading').style.display='none';
+  document.getElementById('shell').style.display='block';
+  render();
+  setTimeout(checkAutoReminders, 400);
+})();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
